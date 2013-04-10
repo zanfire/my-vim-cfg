@@ -6,6 +6,13 @@ This is useful to install always the same set of essential plugins on a new Linu
 
 INSTALL
 =======
+Get latest version, for example:
 
-Execute the install script. (When It will be ready).
+$ git clone https://github.com/zanfire/my-vim-cfg.git
+
+Execute the install script:
+
+$ install.sh
+
+Done, happy coding :-)
 
