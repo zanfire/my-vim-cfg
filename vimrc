@@ -1,5 +1,10 @@
 " Theme
-colorscheme Dark
+set t_Co=256
+
+colorscheme gentooish
+"colorscheme aiseeredvi
+"colorscheme xoria256
+
 
 " Misc
 set nowrap
