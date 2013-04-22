@@ -1,7 +1,7 @@
 " Theme
 set t_Co=256
 
-colorscheme gentooish
+colorscheme 3dglasses
 "colorscheme aiseeredvi
 "colorscheme xoria256
 
@@ -34,7 +34,8 @@ setlocal spell spelllang=en_us
 
 " Shortcuts
 map <F2> :NERDTreeToggle<CR>
-map <F5> :make
+map <F5> :make<CR>
+map <F6> :cn<CR>
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
