@@ -65,7 +65,7 @@ map <F2> :NERDTreeToggle<CR>
 map <F5> :make<CR>
 map <F6> :cn<CR>
 
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+" Turn backup off, since most stuff is in SVN, git etc anyway...
 set nobackup
 set nowb
 set noswapfile
@@ -79,7 +79,13 @@ map <ScrollWheelDown> <C-E>
 " normal copy/paste
 vmap <C-c> y<Esc>i
 vmap <C-x> d<Esc>i
-imap <C-p> <Esc>pi
+imap <C-v> <Esc>pi
 imap <C-y> <Esc>ddi
 map <C-z> <Esc>
 imap <C-z> <Esc>ui
+
+
+" Platform specific stuff
+if has('macunix')
+  set guifont=Monaco:12
+endif
