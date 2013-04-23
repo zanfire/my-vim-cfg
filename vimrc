@@ -75,3 +75,11 @@ set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
+
+" normal copy/paste
+vmap <C-c> y<Esc>i
+vmap <C-x> d<Esc>i
+imap <C-p> <Esc>pi
+imap <C-y> <Esc>ddi
+map <C-z> <Esc>
+imap <C-z> <Esc>ui
