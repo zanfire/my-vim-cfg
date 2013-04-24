@@ -1,10 +1,12 @@
 " Theme
 set t_Co=256
 
-colorscheme 3dglasses
-"colorscheme aiseeredvi
-"colorscheme xoria256
 
+if has('gui_running')
+  colorscheme Mustang
+else
+  colorscheme 3dglasses
+endif
 
 " Misc
 set nowrap
