@@ -12,6 +12,7 @@ set autowrite
 set autoread
 " Disable vi backward compatibility.
 set nocompatible
+set shortmess=atI
 
 set encoding=utf-8
 set scrolloff=3
@@ -75,6 +76,11 @@ set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
+
+" Leater
+let mapleader = ","
+nnoremap <leader>a :Ack
+nnoremap <leader><ESC> :qall<CR>
 
 " normal copy/paste
 vmap <C-c> y<Esc>i
