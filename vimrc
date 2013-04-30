@@ -65,7 +65,7 @@ set si "Smart indent
 
 " Spelling.
 set spelllang=en
-setlocal spell spelllang=en_us 
+setlocal spell spelllang=en 
 
 " Shortcuts
 map <F2> :NERDTreeToggle<CR>
