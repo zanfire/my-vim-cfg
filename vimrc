@@ -99,5 +99,5 @@ imap <C-z> <Esc>ui
 
 " Platform specific stuff
 if has('macunix')
-  set guifont=Monaco:12
+  set guifont=Monaco:h12.5
 endif
