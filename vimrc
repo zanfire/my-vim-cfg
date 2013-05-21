@@ -1,4 +1,10 @@
 filetype off
+
+" Powerline
+let g:Powerline_symbols="compatible"
+
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+.
 call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
@@ -69,6 +75,8 @@ setlocal spell spelllang=en
 
 " Shortcuts
 map <F2> :NERDTreeToggle<CR>
+map <F3> :TagBarToggle<CR>
+
 map <F5> :make<CR>
 map <F6> :cn<CR>
 
@@ -101,3 +109,4 @@ imap <C-z> <Esc>ui
 if has('macunix')
   set guifont=Monaco:h12.5
 endif
+
