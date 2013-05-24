@@ -70,13 +70,6 @@ set si "Smart indent
 set spelllang=en
 setlocal spell spelllang=en 
 
-" Shortcuts
-map <F2> :NERDTreeToggle<CR>
-map <F3> :TagbarToggle<CR>
-
-map <F5> :make<CR>
-map <F6> :cn<CR>
-
 " Turn backup off, since most stuff is in SVN, git etc anyway...
 set nobackup
 set nowb
@@ -90,8 +83,15 @@ map <ScrollWheelDown> <C-E>
 
 " Leater
 let mapleader = ","
-nnoremap <leader>a :Ack
-nnoremap <leader><ESC> :qall<CR>
+
+" Shortcuts
+nnoremap <leader>i :FSHere<CR>
+nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>m :make<CR>
+nnoremap <leader>o :CtrlP<CR>
+nnoremap <leader>s :shell<CR>
+nnoremap <leader>q :qall<CR>
 
 " normal copy/paste
 vmap <C-c> y<Esc>i
