@@ -26,6 +26,7 @@ set shortmess=atI
 set encoding=utf-8
 set scrolloff=3
 " set autoindent
+set hlsearch
 set showmode
 set showcmd
 set hidden
@@ -87,7 +88,9 @@ let mapleader = ","
 " Shortcuts
 nnoremap <leader>i :FSHere<CR>
 nnoremap <leader>f :NERDTreeToggle<CR>
+nnoremap <leader>l :NERDTreeFind<CR>
 nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>b :BufExplorer<CR>
 nnoremap <leader>m :make<CR>
 nnoremap <leader>o :CtrlP<CR>
 nnoremap <leader>s :shell<CR>
@@ -107,3 +110,5 @@ if has('macunix')
   set guifont=Monaco:h12.5
 endif
 
+
+set wildignore+="*/tmp/*,*.so,*.a,*.o,*.swp,*.lib,*.zip"
