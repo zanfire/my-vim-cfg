@@ -37,13 +37,11 @@ set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
-set relativenumber
+if exists("+relativenumber") 
+  set relativenumber
+endif
 set list
 set listchars=tab:▸\ ,eol:¬
-
-" YankRing
-nnoremap <silent> <F3> :YRShow<cr>
-inoremap <silent> <F3> <ESC>:YRShow<cr>
 
 " Create an undo file. In this way when you close and re-open the same file
 " you can perform undo.
@@ -112,4 +110,8 @@ if has('macunix')
 endif
 
 
-set wildignore+="*/tmp/*,*.so,*.a,*.o,*.swp,*.lib,*.zip"
+set wildignore+=*/tmp/*,*.so,*.a,*.o,*.swp,*.lib,*.zip
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|Vendors)$',
+  \ 'file': '\v\.(exe|so|dll|o|a)$',
+  \ }
