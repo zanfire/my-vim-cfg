@@ -95,6 +95,7 @@ nnoremap <leader>m :make<CR>
 nnoremap <leader>o :CtrlP<CR>
 nnoremap <leader>s :shell<CR>
 nnoremap <leader>q :qall<CR>
+nnoremap <leader>v :YRShow<CR>
 
 " normal copy/paste
 vmap <C-c> y<Esc>i
