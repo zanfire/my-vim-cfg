@@ -7,13 +7,15 @@ filetype plugin indent on
 
 " Theme
 set t_Co=256
+set background=dark
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
+colorscheme solarized
 
+let g:airline_powerline_fonts = 1
 
-if has('gui_running')
-  colorscheme Mustang
-else
-  colorscheme 3dglasses
-endif
 
 " Misc
 set nowrap
@@ -41,7 +43,9 @@ if exists("+relativenumber")
   set relativenumber
 endif
 set list
-set listchars=tab:▸\ ,eol:¬
+set listchars=eol:¬
+set listchars=tab:>-
+
 
 " Create an undo file. In this way when you close and re-open the same file
 " you can perform undo.
@@ -66,8 +70,8 @@ set ai "Auto indent
 set si "Smart indent
 
 " Spelling.
-set spelllang=en
-setlocal spell spelllang=en 
+"set spelllang=en
+"setlocal spell spelllang=en 
 
 " Turn backup off, since most stuff is in SVN, git etc anyway...
 set nobackup
@@ -75,7 +79,7 @@ set nowb
 set noswapfile
 
 " Moues configuration.
-set mouse=a
+set mouse=n
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
@@ -89,20 +93,11 @@ nnoremap <leader>f :NERDTreeToggle<CR>
 nnoremap <leader>l :NERDTreeFind<CR>
 nnoremap <leader>t :TagbarToggle<CR>
 nnoremap <leader>b :BufExplorer<CR>
-nnoremap <leader>m :make<CR>
-nnoremap <leader>o :CtrlP<CR>
+nnoremap <leader>o :CtrlP ./<CR>
 nnoremap <leader>s :shell<CR>
 nnoremap <leader>q :qall<CR>
 nnoremap <leader>v :YRShow<CR>
-
-" normal copy/paste
-vmap <C-c> y<Esc>i
-vmap <C-x> d<Esc>i
-imap <C-v> <Esc>pi
-imap <C-y> <Esc>ddi
-map <C-z> <Esc>
-imap <C-z> <Esc>ui
-
+nnoremap <leader>a "zyiw:exe "Ack ".@z.""<CR>
 
 " Platform specific stuff
 if has('macunix')
@@ -115,3 +110,106 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|Vendors)$',
   \ 'file': '\v\.(exe|so|dll|o|a)$',
   \ }
+
+set exrc " enable per-directory .vimrc files.
+set secure " disable unsafe commands in local .vimrc files.
+
+function AppendToFile(file, lines)
+  call writefile(readfile(a:file)+a:lines, a:file)
+endfunction
+
+
+function! ClearBreakpoints()
+  let cmd = '!cat /dev/null > ~/.gdb_breakpoints'
+  echom 'Clearing breakpoints.'
+  execute cmd
+endfunction
+
+function! ShowBreakpoint()
+  let cmd = '!cat ~/.gdb_breakpoints'
+  execute cmd
+endfunction
+
+function! SetBreakpoint()
+  let b = $HOME . "/.gdb_breakpoints"
+  let l=line('.')
+  let f = expand('%:t')
+  let cmd = '!echo break ' . f . ':' . l . ' >> ~/.gdb_breakpoints'
+  let br = 'break ' . f . ':' . l
+  "execute cmd
+  let lines = [br]
+  call AppendToFile(b, lines)
+  echo br
+endfunction
+
+function! SetPrintBreakpoint()
+  let b = $HOME . "/.gdb_breakpoints"
+  let l=line('.')
+  let f = expand('%:t')
+  let cmd = '!echo break ' . f . ':' . l . ' >> ~/.gdb_breakpoints'
+  let br = 'break ' . f . ':' . l
+  "execute cmd
+  let lines = [br, 'commands', "silent", "set pagination off", "printf \"----\\n\"", "info args", "info local", "bt", "printf \"----\\n\"",  "set pagination on", "cont", "end" ]
+  call AppendToFile(b, lines)
+endfunction
+
+function! SetPrintHitBreakpoint()
+  let b = $HOME . "/.gdb_breakpoints"
+  let l=line('.')
+  let f = expand('%:t')
+  let cmd = '!echo break ' . f . ':' . l . ' >> ~/.gdb_breakpoints'
+  let br = 'break ' . f . ':' . l
+  "execute cmd
+  let lines = [br, 'commands', "silent", "set pagination off", "printf \"----> \"", "bt 1" , "set pagination on", "cont", "end" ]
+  call AppendToFile(b, lines)
+endfunction
+
+
+
+function! EditBreakpoints()
+  let cmd = ':vsplit ~/.gdb_breakpoints'
+  execute cmd
+endfunction
+
+
+command GdbSetBt :call SetBreakpoint()
+command GdbSetPrintBt :call SetPrintBreakpoint()
+command GdbSetBtPrintHit :call SetPrintHitBreakpoint()
+command GdbEditBt :call EditBreakpoints()
+command GdbClearBt :call ClearBreakpoints()
+command GdbShowBt :call ShowBreakpoint()
+
+function! MakeSession()
+  let b:sessiondir = $PWD . "/.vim/sessions"
+  exe "!mkdir -p .vim"
+  let b:filename = b:sessiondir
+  exe "mksession! " . b:filename
+endfunction
+
+function! LoadSession()
+  if argc() == 0
+    let b:sessiondir = $PWD . "/.vim/sessions"
+    let b:sessionfile = b:sessiondir
+    if (filereadable(b:sessionfile))
+      exe 'source ' b:sessionfile
+    else
+      echo "No session loaded."
+    endif
+  endif
+endfunction
+
+function! ClearSession()
+  let b:sessiondir = $PWD . "/.vim/sessions"
+  let cmd = '!cat /dev/null > ' . b:sessiondir
+  echom 'Clearing session.'
+  execute cmd
+endfunction
+
+
+
+au VimEnter * nested :call LoadSession()
+au VimLeave * :call MakeSession()
+
+command SessionUpdate :call MakeSession()
+command SessionClear :call ClearSession()
+command SessionLoad :call ClearSession()
