@@ -1,7 +1,37 @@
+" g:my_vim_dir is used elsewhere in my vim configurations
+let g:my_vim_dir=expand("$HOME/.vim")
+
+"$HOME/.vim and $HOME/.vim/after are in the &rtp on unix
+"But on windows, they need to be added.
+if has("win16") || has("win32") || has("win64")
+  "add g:my_vim_dir to the front of the runtimepath
+   execute "set rtp^=".g:my_vim_dir
+  "add g:my_vim_dir\after to the end of the runtimepath
+  execute "set rtp+=".g:my_vim_dir."\\after"
+  "Note, pathogen#infect() looks for the 'bundle' folder in each path
+  "of the &rtp, where the last dir in the '&rtp path' is not 'after'. The
+  "<path>\bundle\*\after folders will be added if and only if
+  "the corresponding <path>\after folder is in the &rtp before
+  "pathogen#infect() is called.  So it is very important to add the above
+  "'after' folder.
+  "(This applies to vim plugins such as snipmate, tabularize, etc.. that
+  " are loaded by pathogen (and perhaps vundle too.))
+
+  " Not necessary, but I like to cleanup &rtp to use \ instead of /
+  " when on windows machines
+  let &rtp=substitute(&rtp,"[/]","\\","g")
+
+  "On windows, if called from cygwin or msys, the shell needs to be changed 
+  "to cmd.exe to work with certain plugins that expect cmd.exe on windows versions   
+  "of vim.
+  if &shell=~#'bash$'
+    set shell=$COMSPEC " sets shell to correct path for cmd.exe
+  endif
+endif
+
 filetype off
 
 " Powerline
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
@@ -45,7 +75,7 @@ endif
 set list
 set listchars=eol:¬
 set listchars=tab:>-
-
+syntax on
 
 " Create an undo file. In this way when you close and re-open the same file
 " you can perform undo.
@@ -104,6 +134,9 @@ if has('macunix')
   set guifont=Monaco:h12.5
 endif
 
+if has("win16") || has("win32") || has("win64")
+  set guifont=Powerline\ Consolas:h12.5
+endif
 
 set wildignore+=*/tmp/*,*.so,*.a,*.o,*.swp,*.lib,*.zip
 let g:ctrlp_custom_ignore = {
@@ -205,11 +238,13 @@ function! ClearSession()
   execute cmd
 endfunction
 
+" Platform specific stuff
+if has('unix')
+  au VimEnter * nested :call LoadSession()
+  au VimLeave * :call MakeSession()
+  command SessionUpdate :call MakeSession()
+  command SessionClear :call ClearSession()
+  command SessionLoad :call ClearSession()
+endif
 
-
-au VimEnter * nested :call LoadSession()
-au VimLeave * :call MakeSession()
-
-command SessionUpdate :call MakeSession()
-command SessionClear :call ClearSession()
-command SessionLoad :call ClearSession()
+let g:airline#extensions#tabline#enabled = 1
