@@ -37,7 +37,7 @@ filetype plugin indent on
 
 " Theme
 set t_Co=256
-set background=dark
+set background=light
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_contrast="normal"
@@ -131,11 +131,14 @@ nnoremap <leader>a "zyiw:exe "Ack ".@z.""<CR>
 
 " Platform specific stuff
 if has('macunix')
-  set guifont=Monaco:h12.5
+  set guifont=Source\ Code\ Pro\ for\ Powerline
+  " set guifont=Monaco:h12.5
+  "set guifont=Consolas\ for\ Powerline:h9.5
+  "set guifont=Powerline\ Consolas:h12.5
 endif
 
 if has("win16") || has("win32") || has("win64")
-  set guifont=Powerline\ Consolas:h12.5
+  set guifont=Powerline\ Consolasc:h12.5
 endif
 
 set wildignore+=*/tmp/*,*.so,*.a,*.o,*.swp,*.lib,*.zip
@@ -248,3 +251,40 @@ if has('unix')
 endif
 
 let g:airline#extensions#tabline#enabled = 1
+
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
+
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+"
+" " Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+"
+" " Default: 0.5
+" let g:limelight_default_coefficient = 0.7
+"
+" " Number of preceding/following paragraphs to include (default: 0)
+" let g:limelight_paragraph_span = 1
+"
+" " Beginning/end of paragraph
+" "   When there's no empty line between the paragraphs
+" "   and each paragraph starts with indentation
+" let g:limelight_bop = '^\s'
+" let g:limelight_eop = '\ze\n^\s'
+"
+" " Highlighting priority (default: 10)
+" "   Set it to -1 not to overrule hlsearch
+" let g:limelight_priority = -1
+
+
+" Disable arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
