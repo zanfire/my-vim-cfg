@@ -113,6 +113,10 @@ set mouse=n
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
 " Leater
 let mapleader = ","
@@ -126,7 +130,6 @@ nnoremap <leader>b :BufExplorer<CR>
 nnoremap <leader>o :CtrlP ./<CR>
 nnoremap <leader>s :shell<CR>
 nnoremap <leader>q :qall<CR>
-nnoremap <leader>v :YRShow<CR>
 nnoremap <leader>a "zyiw:exe "Ack ".@z.""<CR>
 
 " Platform specific stuff
@@ -252,11 +255,6 @@ endif
 
 let g:airline#extensions#tabline#enabled = 1
 
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
-
 
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
@@ -286,5 +284,5 @@ let g:limelight_conceal_guifg = '#777777'
 " Disable arrow keys
 noremap <Up> <NOP>
 noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+noremap <Left> :bprevious<CR>
+noremap <Right> :bnext<CR>
