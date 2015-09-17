@@ -138,7 +138,8 @@ if has('macunix')
 endif
 
 if has("win16") || has("win32") || has("win64")
-  set guifont=Powerline\ Consolasc:h12.5
+  set guifont=Inconsolata\ for\ Powerline:h12.5
+  "set guifont=Powerline\ Consolasc:h12.5
 endif
 
 set wildignore+=*/tmp/*,*.so,*.a,*.o,*.swp,*.lib,*.zip
