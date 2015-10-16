@@ -75,12 +75,24 @@ endif
 set list
 set listchars=eol:¬
 set listchars=tab:>-
+set tags=./tags
 syntax on
 
 " Create an undo file. In this way when you close and re-open the same file
 " you can perform undo.
-" set undofile
- 
+" Put plugins and dictionaries in this dir (also on Windows)
+let vimDir = '$HOME/.vim'
+let &runtimepath.=','.vimDir
+
+" " Keep undo history across sessions by storing it in a file
+if has('persistent_undo')
+  let myUndoDir = expand(vimDir . '/undodir')
+  " Create dirs
+  call system('mkdir ' . vimDir)
+  call system('mkdir ' . myUndoDir)
+  let &undodir = myUndoDir
+  set undofile
+endif
 
 " Status line
 set laststatus=2
@@ -219,18 +231,18 @@ command GdbClearBt :call ClearBreakpoints()
 command GdbShowBt :call ShowBreakpoint()
 
 function! MakeSession()
-  let b:sessiondir = $PWD . "/.vim/sessions"
-  exe "!mkdir -p .vim"
-  let b:filename = b:sessiondir
+  let b:sessiondir = $HOME . "/.vim/sessions" . $PWD
+  exe "!mkdir -p " . b:sessiondir
+  let b:filename = b:sessiondir . "/session"
   exe "mksession! " . b:filename
 endfunction
 
 function! LoadSession()
   if argc() == 0
-    let b:sessiondir = $PWD . "/.vim/sessions"
-    let b:sessionfile = b:sessiondir
+    let b:sessiondir = $HOME . "/.vim/sessions" . $PWD
+    let b:sessionfile = b:sessiondir . "/session"
     if (filereadable(b:sessionfile))
-      exe 'source ' b:sessionfile
+      exe "source " . b:sessionfile
     else
       echo "No session loaded."
     endif
@@ -282,7 +294,7 @@ let g:limelight_conceal_guifg = '#777777'
 
 
 " Disable arrow keys
-noremap <Up> <NOP>
-noremap <Down> <NOP>
+noremap <Up> :YRShow<CR>
+noremap <Down> :CtrlP<CR>
 noremap <Left> :bprevious<CR>
 noremap <Right> :bnext<CR>
