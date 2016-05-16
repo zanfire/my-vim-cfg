@@ -1,5 +1,9 @@
-" g:my_vim_dir is used elsewhere in my vim configurations
-let g:my_vim_dir=expand("$HOME/.vim")
+if has('nvim')
+  let s:editor_root=expand("$HOME/.config/nvim")
+  let g:my_vim_dir=expand("$HOME/.confi/nvim")
+else
+  let g:my_vim_dir=expand("$HOME/.vim")
+endif
 
 "$HOME/.vim and $HOME/.vim/after are in the &rtp on unix
 "But on windows, they need to be added.
@@ -73,8 +77,7 @@ if exists("+relativenumber")
   set relativenumber
 endif
 set list
-set listchars=eol:¬
-set listchars=tab:>-
+set listchars=eol:¬,tab:··
 set tags=./tags
 syntax on
 
