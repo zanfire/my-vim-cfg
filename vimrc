@@ -41,7 +41,7 @@ filetype plugin indent on
 
 " Theme
 set t_Co=256
-set background=light
+set background=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_contrast="normal"
@@ -298,7 +298,7 @@ let g:limelight_conceal_guifg = '#777777'
 
 
 " Disable arrow keys
-noremap <Up> :YRShow<CR>
+noremap <Up> :CtrlPMixed<CR>
 noremap <Down> :CtrlP<CR>
 noremap <Left> :bprevious<CR>
 noremap <Right> :bnext<CR>
