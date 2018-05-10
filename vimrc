@@ -1,9 +1,13 @@
-if has('nvim')
-  let s:editor_root=expand("$HOME/.config/nvim")
-  let g:my_vim_dir=expand("$HOME/.confi/nvim")
-else
-  let g:my_vim_dir=expand("$HOME/.vim")
-endif
+" Matteo Valdina vimrc.
+"
+
+" Pathogen load plugins.
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
+
+let g:my_vim_dir=expand("$HOME/.vim")
+
 
 "$HOME/.vim and $HOME/.vim/after are in the &rtp on unix
 "But on windows, they need to be added.
@@ -35,8 +39,6 @@ endif
 
 filetype off
 
-" Powerline
-call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
 " Theme
