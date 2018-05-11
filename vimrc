@@ -2,8 +2,11 @@
 "
 
 " Pathogen load plugins.
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+"call pathogen#runtime_append_all_bundles()
+"call pathogen#helptags()
 
 
 let g:my_vim_dir=expand("$HOME/.vim")
@@ -272,6 +275,7 @@ if has('unix')
 endif
 
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
 
 " Color name (:help cterm-colors) or ANSI code
@@ -300,7 +304,7 @@ let g:limelight_conceal_guifg = '#777777'
 
 
 " Disable arrow keys
-noremap <Up> :CtrlPMixed<CR>
-noremap <Down> :CtrlP<CR>
+noremap <Up> :copen<CR>
+noremap <Down> :cclose<CR>
 noremap <Left> :bprevious<CR>
 noremap <Right> :bnext<CR>
