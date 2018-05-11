@@ -5,12 +5,8 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
-
 
 let g:my_vim_dir=expand("$HOME/.vim")
-
 
 "$HOME/.vim and $HOME/.vim/after are in the &rtp on unix
 "But on windows, they need to be added.
@@ -38,23 +34,23 @@ if has("win16") || has("win32") || has("win64")
   if &shell=~#'bash$'
     set shell=$COMSPEC " sets shell to correct path for cmd.exe
   endif
+else
+
 endif
-
-filetype off
-
-filetype plugin indent on
 
 " Theme
 set t_Co=256
-set background=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
+set background=dark
 colorscheme solarized
 
+" Airline
+let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-
+let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
 " Misc
 set nowrap
@@ -83,8 +79,10 @@ if exists("+relativenumber")
 endif
 set list
 set listchars=eol:¬,tab:··
-set tags=./tags
+set tags=./tagsk
 syntax on
+
+set shell=/bin/zsh
 
 " Create an undo file. In this way when you close and re-open the same file
 " you can perform undo.
@@ -153,12 +151,11 @@ nnoremap <leader>q :qall<CR>
 nnoremap <leader>a "zyiw:exe "Ack ".@z.""<CR>
 
 " Platform specific stuff
-if has('macunix')
-  set guifont=Source\ Code\ Pro\ for\ Powerline
+set guifont=PragmataPro\ Mono
+
   " set guifont=Monaco:h12.5
   "set guifont=Consolas\ for\ Powerline:h9.5
-  "set guifont=Powerline\ Consolas:h12.5
-endif
+  "set guifont=Powerline\ Consolas:h12.
 
 if has("win16") || has("win32") || has("win64")
   set guifont=Inconsolata\ for\ Powerline:h12.5
@@ -273,10 +270,6 @@ if has('unix')
   command SessionClear :call ClearSession()
   command SessionLoad :call ClearSession()
 endif
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
-
 
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
