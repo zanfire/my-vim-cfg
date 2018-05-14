@@ -46,3 +46,6 @@
 [submodule "/home/mvaldina/.vim/bundle/vim-obsession"]
 	path = /home/mvaldina/.vim/bundle/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
+[submodule "/home/mvaldina/.vim/bundle/vim-build-in-docker"]
+	path = /home/mvaldina/.vim/bundle/vim-build-in-docker
+	url = https://github.com/zanfire/vim-build-in-docker.git
