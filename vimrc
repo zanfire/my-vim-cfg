@@ -52,6 +52,14 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
+" vim-gutentags
+" Enabled in project .vimrc
+let g:gutentags_enabled = 0
+
+" asyncrun
+let g:asyncrun_bell = 1
+let g:asyncrun_rootmarks = ['.svn', '.git']
+
 " Misc
 set nowrap
 set autowrite
@@ -297,7 +305,7 @@ let g:limelight_conceal_guifg = '#777777'
 
 
 " Disable arrow keys
-noremap <Up> :copen<CR>
-noremap <Down> :cclose<CR>
+noremap <Up> :CtrlPMixed<CR>
+nnoremap <Down> :call asyncrun#quickfix_toggle(6)<cr>
 noremap <Left> :bprevious<CR>
 noremap <Right> :bnext<CR>
