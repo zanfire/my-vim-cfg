@@ -43,3 +43,6 @@
 [submodule "bundle/syntax"]
 	path = bundle/syntax
 	url = https://github.com/octol/vim-cpp-enhanced-highlight.git
+[submodule "/home/mvaldina/.vim/bundle/vim-obsession"]
+	path = /home/mvaldina/.vim/bundle/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git

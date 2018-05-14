@@ -244,41 +244,6 @@ command GdbEditBt :call EditBreakpoints()
 command GdbClearBt :call ClearBreakpoints()
 command GdbShowBt :call ShowBreakpoint()
 
-function! MakeSession()
-  let b:sessiondir = $HOME . "/.vim/sessions" . $PWD
-  exe "!mkdir -p " . b:sessiondir
-  let b:filename = b:sessiondir . "/session"
-  exe "mksession! " . b:filename
-endfunction
-
-function! LoadSession()
-  if argc() == 0
-    let b:sessiondir = $HOME . "/.vim/sessions" . $PWD
-    let b:sessionfile = b:sessiondir . "/session"
-    if (filereadable(b:sessionfile))
-      exe "source " . b:sessionfile
-    else
-      echo "No session loaded."
-    endif
-  endif
-endfunction
-
-function! ClearSession()
-  let b:sessiondir = $PWD . "/.vim/sessions"
-  let cmd = '!cat /dev/null > ' . b:sessiondir
-  echom 'Clearing session.'
-  execute cmd
-endfunction
-
-" Platform specific stuff
-if has('unix')
-  au VimEnter * nested :call LoadSession()
-  au VimLeave * :call MakeSession()
-  command SessionUpdate :call MakeSession()
-  command SessionClear :call ClearSession()
-  command SessionLoad :call ClearSession()
-endif
-
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
