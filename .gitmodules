@@ -43,9 +43,9 @@
 [submodule "bundle/syntax"]
 	path = bundle/syntax
 	url = https://github.com/octol/vim-cpp-enhanced-highlight.git
-[submodule "/home/mvaldina/.vim/bundle/vim-obsession"]
-	path = /home/mvaldina/.vim/bundle/vim-obsession
+[submodule "bundle/vim-obsession"]
+	path = bundle/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
-[submodule "/home/mvaldina/.vim/bundle/vim-build-in-docker"]
-	path = /home/mvaldina/.vim/bundle/vim-build-in-docker
+[submodule "bundle/vim-build-in-docker"]
+	path = bundle/vim-build-in-docker
 	url = https://github.com/zanfire/vim-build-in-docker.git
