@@ -8,7 +8,7 @@ INSTALL
 =======
 Get latest version, for example:
 
-$ git clone https://github.com/zanfire/my-vim-cfg.git
+$ git clone --recursive https://github.com/zanfire/my-vim-cfg.git
 
 Execute the install script:
 
