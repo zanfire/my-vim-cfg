@@ -49,3 +49,11 @@
 [submodule "bundle/vim-build-in-docker"]
 	path = bundle/vim-build-in-docker
 	url = https://github.com/zanfire/vim-build-in-docker.git
+[submodule "bundle/yats.vim"]
+	path = bundle/yats.vim
+	url = https://github.com/herringtondarkholme/yats.vim
+	branch = master
+[submodule "bundle/ale"]
+	path = bundle/ale
+	url = https://github.com/dense-analysis/ale.git
+	branch = master
