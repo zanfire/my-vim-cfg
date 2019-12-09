@@ -1,11 +1,6 @@
 " Matteo Valdina vimrc.
 "
 
-" Pathogen load plugins.
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-
 let g:my_vim_dir=expand("$HOME/.vim")
 
 "$HOME/.vim and $HOME/.vim/after are in the &rtp on unix
@@ -34,9 +29,13 @@ if has("win16") || has("win32") || has("win64")
   if &shell=~#'bash$'
     set shell=$COMSPEC " sets shell to correct path for cmd.exe
   endif
-else
-
 endif
+
+" Pathogen load plugins.
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
 
 " Theme
 set t_Co=256
@@ -49,12 +48,16 @@ colorscheme solarized
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
+if has("win16") || has("win32") || has("win64")
+  let g:airline_powerline_fonts = 0
+else
+  let g:airline_powerline_fonts = 0
+endif
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
 " vim-gutentags
 " Enabled in project .vimrc
-let g:gutentags_enabled = 0
+let g:gutentags_enabled = 1
 
 " asyncrun
 let g:asyncrun_bell = 1
@@ -81,16 +84,21 @@ set visualbell
 set cursorline
 set ttyfast
 set ruler
+set colorcolumn=120
 set backspace=indent,eol,start
 if exists("+relativenumber") 
   set relativenumber
 endif
 set list
 set listchars=eol:¬,tab:··
-set tags=./tagsk
+set tags=./tags
 syntax on
 
-set shell=/bin/zsh
+
+if has("win16") || has("win32") || has("win64")
+else
+  set shell=/bin/zsh
+endif
 
 " Create an undo file. In this way when you close and re-open the same file
 " you can perform undo.
@@ -158,15 +166,21 @@ nnoremap <leader>s :shell<CR>
 nnoremap <leader>q :qall<CR>
 nnoremap <leader>a "zyiw:exe "Ack ".@z.""<CR>
 
+" Configure ack to use ag the siver searcher
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+
+
 " Platform specific stuff
 set guifont=PragmataPro\ Mono
 
-  " set guifont=Monaco:h12.5
-  "set guifont=Consolas\ for\ Powerline:h9.5
-  "set guifont=Powerline\ Consolas:h12.
+"set guifont=Monaco:h12.5
+"set guifont=Consolas\ for\ Powerline:h9.5
+"set guifont=Powerline\ Consolas:h12.
 
 if has("win16") || has("win32") || has("win64")
-  set guifont=Inconsolata\ for\ Powerline:h12.5
+  set guifont=PragmataPro\ Mono:h12.5
+  " set guifont=Inconsolata\ for\ Powerline:h12.5
   "set guifont=Powerline\ Consolasc:h12.5
 endif
 
@@ -270,7 +284,29 @@ let g:limelight_conceal_guifg = '#777777'
 
 
 " Disable arrow keys
-noremap <Up> :CtrlPMixed<CR>
+noremap <Up> :CtrlPCurWD<CR>
 nnoremap <Down> :call asyncrun#quickfix_toggle(6)<cr>
 noremap <Left> :bprevious<CR>
 noremap <Right> :bnext<CR>
+
+" Typescript configurations and addition.
+let g:ale_completion_enabled = 1
+
+let g:tagbar_type_typescript = {
+  \ 'ctagsbin' : 'tstags',
+  \ 'ctagsargs' : '-f-',
+  \ 'kinds': [
+    \ 'e:enums:0:1',
+    \ 'f:function:0:1',
+    \ 't:typealias:0:1',
+    \ 'M:Module:0:1',
+    \ 'I:import:0:1',
+    \ 'i:interface:0:1',
+    \ 'C:class:0:1',
+    \ 'm:method:0:1',
+    \ 'p:property:0:1',
+    \ 'v:variable:0:1',
+    \ 'c:const:0:1',
+  \ ],
+  \ 'sort' : 0
+  \ }
