@@ -38,13 +38,14 @@ filetype plugin indent on
 
 
 " Theme
-set t_Co=256
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
-set background=dark
-colorscheme solarized
+"set t_Co=256
+"let g:solarized_termtrans=1
+"let g:solarized_termcolors=256
+"let g:solarized_contrast="normal"
+"let g:solarized_visibility="normal"
+"set background=dark
+"colorscheme solarized8
+colorscheme molokai
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -57,7 +58,7 @@ let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status
 
 " vim-gutentags
 " Enabled in project .vimrc
-let g:gutentags_enabled = 1
+let g:gutentags_enabled = 0
 
 " asyncrun
 let g:asyncrun_bell = 1
@@ -106,7 +107,7 @@ endif
 let vimDir = '$HOME/.vim'
 let &runtimepath.=','.vimDir
 
-" " Keep undo history across sessions by storing it in a file
+" Keep undo history across sessions by storing it in a file
 if has('persistent_undo')
   let myUndoDir = expand(vimDir . '/undodir')
   " Create dirs
@@ -161,15 +162,16 @@ nnoremap <leader>f :NERDTreeToggle<CR>
 nnoremap <leader>l :NERDTreeFind<CR>
 nnoremap <leader>t :TagbarToggle<CR>
 nnoremap <leader>b :BufExplorer<CR>
-nnoremap <leader>o :CtrlP ./<CR>
 nnoremap <leader>s :shell<CR>
 nnoremap <leader>q :qall<CR>
-nnoremap <leader>a "zyiw:exe "Ack ".@z.""<CR>
+nnoremap <leader>e :Files<CR>
+nnoremap <leader>a "zyiw:exe "Ack! ".@z.""<CR>
 
-" Configure ack to use ag the siver searcher
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let wildignore = '*/tmp/*,*/node_modules/*,*/dist/*,*/build/*,*.so,*.a,*.o,*.swp,*.lib,*.zip,*/web-static/*'
+" Configure ack to use rg the siver searcher
+let g:ackprg = 'rg --ignore "' . wildignore . '" --nocolor --column'
 
-
+cnoreabbrev Ack Ack!
 
 " Platform specific stuff
 set guifont=PragmataPro\ Mono
@@ -184,10 +186,11 @@ if has("win16") || has("win32") || has("win64")
   "set guifont=Powerline\ Consolasc:h12.5
 endif
 
-set wildignore+=*/tmp/*,*.so,*.a,*.o,*.swp,*.lib,*.zip
+set wildignore+=wildignore
+
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|Vendors)$',
-  \ 'file': '\v\.(exe|so|dll|o|a)$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|o|a|lib|node)$',
   \ }
 
 set exrc " enable per-directory .vimrc files.
@@ -284,14 +287,17 @@ let g:limelight_conceal_guifg = '#777777'
 
 
 " Disable arrow keys
-noremap <Up> :CtrlPCurWD<CR>
-nnoremap <Down> :call asyncrun#quickfix_toggle(6)<cr>
+"noremap <Up> :CtrlPCurWD<CR>
+"nnoremap <Down> :call asyncrun#quickfix_toggle(6)<cr>
+noremap <Up> <NOP>
+nnoremap <Down> <NOP>
 noremap <Left> :bprevious<CR>
 noremap <Right> :bnext<CR>
 
 " Typescript configurations and addition.
 let g:ale_completion_enabled = 1
 
+" Tagbar
 let g:tagbar_type_typescript = {
   \ 'ctagsbin' : 'tstags',
   \ 'ctagsargs' : '-f-',
@@ -310,3 +316,4 @@ let g:tagbar_type_typescript = {
   \ ],
   \ 'sort' : 0
   \ }
+
