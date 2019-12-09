@@ -49,3 +49,15 @@
 [submodule "bundle/vim-build-in-docker"]
 	path = bundle/vim-build-in-docker
 	url = https://github.com/zanfire/vim-build-in-docker.git
+[submodule "bundle/typescript-vim"]
+	path = bundle/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+	branch = master
+[submodule "bundle/vim-plug"]
+	path = bundle/vim-plug
+	url = https://github.com/junegunn/vim-plug
+	branch = master
+[submodule "bundle/vim-jsx-typescript"]
+	path = bundle/vim-jsx-typescript
+	url = https://github.com/peitalin/vim-jsx-typescript.git
+	branch = master
