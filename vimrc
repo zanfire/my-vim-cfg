@@ -158,6 +158,9 @@ nnoremap <leader>s :shell<CR>
 nnoremap <leader>q :qall<CR>
 nnoremap <leader>e :Files<CR>
 nnoremap <leader>a "zyiw:exe "Ack! ".@z.""<CR>
+nnoremap <leader>l :copy +0<CR>
+nnoremap <leader>k :move -2<CR>
+nnoremap <leader>j :move +1<CR>
 
 let wildignore = '*/tmp/*,*/node_modules/*,*/dist/*,*/build/*,*.so,*.a,*.o,*.swp,*.lib,*.zip,*/web-static/*'
 " Configure ack to use rg the siver searcher
