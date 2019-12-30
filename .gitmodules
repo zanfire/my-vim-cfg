@@ -57,3 +57,7 @@
 	path = bundle/fzf
 	url = https://github.com/junegunn/fzf
 	branch = master
+[submodule "bundle/bufexplorer"]
+	path = bundle/bufexplorer
+	url = https://github.com/jlanzarotta/bufexplorer
+	branch = master

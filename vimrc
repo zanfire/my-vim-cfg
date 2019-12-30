@@ -15,8 +15,8 @@ if has("win16") || has("win32") || has("win64")
   " when on windows machines
   let &rtp=substitute(&rtp,"[/]","\\","g")
 
-  "On windows, if called from cygwin or msys, the shell needs to be changed 
-  "to cmd.exe to work with certain plugins that expect cmd.exe on windows versions   
+  "On windows, if called from cygwin or msys, the shell needs to be changed
+  "to cmd.exe to work with certain plugins that expect cmd.exe on windows versions
   "of vim.
   if &shell=~#'bash$'
     set shell=$COMSPEC " sets shell to correct path for cmd.exe
@@ -28,15 +28,6 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-
-" Theme
-"set t_Co=256
-"let g:solarized_termtrans=1
-"let g:solarized_termcolors=256
-"let g:solarized_contrast="normal"
-"let g:solarized_visibility="normal"
-"set background=dark
-"colorscheme solarized8
 colorscheme molokai
 
 " Airline
@@ -47,10 +38,6 @@ else
   let g:airline_powerline_fonts = 0
 endif
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
-
-" vim-gutentags
-" Enabled in project .vimrc
-let g:gutentags_enabled = 0
 
 " asyncrun
 let g:asyncrun_bell = 1
@@ -87,6 +74,12 @@ set listchars=eol:¬,tab:··
 set tags=./tags
 syntax on
 
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 if has("win16") || has("win32") || has("win64")
 else
@@ -120,11 +113,14 @@ set numberwidth=4
 " Tabs and indents
 set smarttab
 set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set ai "Auto indent
 set si "Smart indent
+
+autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType typecript setlocal shiftwidth=2 softtabstop=2 expandtab
 
 " Spelling.
 "set spelllang=en
@@ -149,24 +145,20 @@ map <C-l> <C-w>l
 let mapleader = ","
 
 " Shortcuts
-nnoremap <leader>i :FSHere<CR>
 nnoremap <leader>f :NERDTreeToggle<CR>
 nnoremap <leader>l :NERDTreeFind<CR>
-nnoremap <leader>t :TagbarToggle<CR>
 nnoremap <leader>b :BufExplorer<CR>
 nnoremap <leader>s :shell<CR>
 nnoremap <leader>q :qall<CR>
 nnoremap <leader>e :Files<CR>
-nnoremap <leader>a "zyiw:exe "Ack! ".@z.""<CR>
+nnoremap <leader>a "zyiw:exe "Rg ".@z.""<CR>
 nnoremap <leader>l :copy +0<CR>
 nnoremap <leader>k :move -2<CR>
 nnoremap <leader>j :move +1<CR>
 
 let wildignore = '*/tmp/*,*/node_modules/*,*/dist/*,*/build/*,*.so,*.a,*.o,*.swp,*.lib,*.zip,*/web-static/*'
 " Configure ack to use rg the siver searcher
-let g:ackprg = 'rg --ignore "' . wildignore . '" --nocolor --column'
-
-cnoreabbrev Ack Ack!
+let g:ackprg = 'rg --vimgrep --no-heading'
 
 " Platform specific stuff
 set guifont=PragmataPro\ Mono
@@ -256,34 +248,7 @@ command GdbEditBt :call EditBreakpoints()
 command GdbClearBt :call ClearBreakpoints()
 command GdbShowBt :call ShowBreakpoint()
 
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-"
-" " Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-"
-" " Default: 0.5
-" let g:limelight_default_coefficient = 0.7
-"
-" " Number of preceding/following paragraphs to include (default: 0)
-" let g:limelight_paragraph_span = 1
-"
-" " Beginning/end of paragraph
-" "   When there's no empty line between the paragraphs
-" "   and each paragraph starts with indentation
-" let g:limelight_bop = '^\s'
-" let g:limelight_eop = '\ze\n^\s'
-"
-" " Highlighting priority (default: 10)
-" "   Set it to -1 not to overrule hlsearch
-" let g:limelight_priority = -1
-
-
 " Disable arrow keys
-"noremap <Up> :CtrlPCurWD<CR>
-"nnoremap <Down> :call asyncrun#quickfix_toggle(6)<cr>
 noremap <Up> <NOP>
 nnoremap <Down> <NOP>
 noremap <Left> :bprevious<CR>
@@ -291,24 +256,3 @@ noremap <Right> :bnext<CR>
 
 " Typescript configurations and addition.
 let g:ale_completion_enabled = 1
-
-" Tagbar
-let g:tagbar_type_typescript = {
-  \ 'ctagsbin' : 'tstags',
-  \ 'ctagsargs' : '-f-',
-  \ 'kinds': [
-    \ 'e:enums:0:1',
-    \ 'f:function:0:1',
-    \ 't:typealias:0:1',
-    \ 'M:Module:0:1',
-    \ 'I:import:0:1',
-    \ 'i:interface:0:1',
-    \ 'C:class:0:1',
-    \ 'm:method:0:1',
-    \ 'p:property:0:1',
-    \ 'v:variable:0:1',
-    \ 'c:const:0:1',
-  \ ],
-  \ 'sort' : 0
-  \ }
-
