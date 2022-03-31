@@ -1,4 +1,4 @@
-" Matteo Valdina vimrc.
+" my vimrc configuration
 "
 
 let g:my_vim_dir=expand("$HOME/.vim")
@@ -83,7 +83,8 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 if has("win16") || has("win32") || has("win64")
-else
+endif
+if (has('unix') || has('macunix')) && !has('win32unix')
   set shell=/bin/zsh
 endif
 
