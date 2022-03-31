@@ -28,6 +28,7 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
+"colorscheme solarized8
 colorscheme molokai
 
 " Airline
@@ -66,7 +67,7 @@ set ttyfast
 set ruler
 set colorcolumn=120
 set backspace=indent,eol,start
-if exists("+relativenumber") 
+if exists("+relativenumber")
   set relativenumber
 endif
 set list
@@ -120,7 +121,7 @@ set ai "Auto indent
 set si "Smart indent
 
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
-autocmd FileType typecript setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 expandtab
 
 " Spelling.
 "set spelllang=en
